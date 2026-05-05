@@ -1,7 +1,9 @@
 name: flutter_release_checklist
 description: A CLI tool to run pre-release security and quality checks on Flutter projects.
 version: 0.1.0
-homepage: https://github.com/yourusername/flutter_release_checklist
+homepage: https://github.com/iammujtaba44/flutter_release_checklist
+repository: https://github.com/iammujtaba44/flutter_release_checklist
+issue_tracker: https://github.com/iammujtaba44/flutter_release_checklist/issues
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
