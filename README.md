@@ -351,4 +351,4 @@ If this tool saves you from a bad release, consider buying me a coffee:
 
 ## License
 
-MIT...
+MIT.
