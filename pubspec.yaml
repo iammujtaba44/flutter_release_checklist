@@ -1,0 +1,26 @@
+name: flutter_release_checklist
+description: A CLI tool to run pre-release security and quality checks on Flutter projects.
+version: 0.1.0
+homepage: https://github.com/yourusername/flutter_release_checklist
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  args: ^2.4.0
+  yaml: ^3.1.0
+  path: ^1.8.0
+  ansi_styles: ^0.3.0
+
+dev_dependencies:
+  test: ^1.24.0
+  lints: ^6.0.0
+
+executables:
+  flutter_release_checklist: flutter_release_checklist
+
+# Globs (relative to package root, leading slash) that pub.dev's secret
+# scanner should ignore. The hardcoded-secrets test file deliberately
+# contains fake-looking key/token literals as test fixtures.
+false_secrets:
+  - /test/checks/hardcoded_secrets_check_test.dart

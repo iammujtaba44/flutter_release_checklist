@@ -1,0 +1,33 @@
+# release_checklist.yaml — place this in the root of your Flutter project.
+#
+# All checks are enabled by default; list one explicitly here if you want to
+# disable it (e.g. `analyze: false` in CI where you run analyze separately).
+
+flavor: production              # optional; --flavor on the CLI overrides this
+
+checks:
+  android_manifest: true
+  ios_plist: true
+  hardcoded_secrets: true
+  proguard: true
+  debug_mode: true
+  analyze: true
+  version_bump: true
+  test_coverage: true
+  app_icon: true
+  dart_define_leak: true
+
+thresholds:
+  test_coverage_min: 70         # percentage; default 70
+
+# Extra regex patterns appended to the built-in hardcoded_secrets set.
+# These run as Dart RegExp (case-sensitive unless you use (?i)).
+secret_patterns:
+  - "sk_live_[A-Za-z0-9]{16,}"  # Stripe live keys
+  - "AKIA[0-9A-Z]{16}"          # AWS access key IDs
+  - "Bearer\\s+[A-Za-z0-9_\\-\\.]{20,}"
+
+# Path prefixes (relative to project root) skipped during file scans.
+exclude_paths:
+  - "lib/generated/"
+  - ".dart_tool/"
