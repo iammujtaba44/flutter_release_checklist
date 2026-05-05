@@ -16,18 +16,18 @@ Runs ten independent checks, prints a colorised pass/warn/fail summary, and
 exits non-zero if any check fails. Designed so each check is small, scoped,
 and independently testable.
 
-| # | Check | Looks at | On fail |
-|---|---|---|---|
-| 1 | `android_manifest` | `android/app/src/main/AndroidManifest.xml` | `android:debuggable="true"` is present |
-| 2 | `ios_plist` | `ios/Runner/Info.plist` | `NSAllowsArbitraryLoads = true`; warns on wildcard `NSExceptionDomains` |
-| 3 | `hardcoded_secrets` | `lib/**.dart` | matches a built-in or user-supplied regex (warning, not failure) |
-| 4 | `proguard` | `android/app/proguard-rules.pro`, `android/app/build.gradle[.kts]` | rules file missing, or `minifyEnabled true` not set on release |
-| 5 | `debug_mode` | `lib/**.dart` | `debugPrint(` (fail), `print(` (warn), bare `kDebugMode` (warn) |
-| 6 | `analyze` | invokes `flutter analyze` | analyzer reports any issues |
-| 7 | `version_bump` | `pubspec.yaml` + `git tag --sort=-v:refname` | pubspec version is not strictly greater than latest semver tag |
-| 8 | `test_coverage` | runs `flutter test --coverage`, parses `coverage/lcov.info` | line coverage below `thresholds.test_coverage_min` (default 70%) |
-| 9 | `app_icon` | `android/app/src/main/res/mipmap-*`, `ios/.../AppIcon.appiconset/Contents.json` | icons missing for both platforms |
-| 10 | `dart_define_leak` | `.vscode/launch.json`, `.idea/`, root-level `*.sh`/`*.env` | `--dart-define KEY=VALUE` with a value that looks like a real secret |
+| #   | Check               | Looks at                                                                        | On fail                                                                 |
+| --- | ------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| 1   | `android_manifest`  | `android/app/src/main/AndroidManifest.xml`                                      | `android:debuggable="true"` is present                                  |
+| 2   | `ios_plist`         | `ios/Runner/Info.plist`                                                         | `NSAllowsArbitraryLoads = true`; warns on wildcard `NSExceptionDomains` |
+| 3   | `hardcoded_secrets` | `lib/**.dart`                                                                   | matches a built-in or user-supplied regex (warning, not failure)        |
+| 4   | `proguard`          | `android/app/proguard-rules.pro`, `android/app/build.gradle[.kts]`              | rules file missing, or `minifyEnabled true` not set on release          |
+| 5   | `debug_mode`        | `lib/**.dart`                                                                   | `debugPrint(` (fail), `print(` (warn), bare `kDebugMode` (warn)         |
+| 6   | `analyze`           | invokes `flutter analyze`                                                       | analyzer reports any issues                                             |
+| 7   | `version_bump`      | `pubspec.yaml` + `git tag --sort=-v:refname`                                    | pubspec version is not strictly greater than latest semver tag          |
+| 8   | `test_coverage`     | runs `flutter test --coverage`, parses `coverage/lcov.info`                     | line coverage below `thresholds.test_coverage_min` (default 70%)        |
+| 9   | `app_icon`          | `android/app/src/main/res/mipmap-*`, `ios/.../AppIcon.appiconset/Contents.json` | icons missing for both platforms                                        |
+| 10  | `dart_define_leak`  | `.vscode/launch.json`, `.idea/`, root-level `*.sh`/`*.env`                      | `--dart-define KEY=VALUE` with a value that looks like a real secret    |
 
 ---
 
@@ -69,22 +69,22 @@ flutter_release_checklist run --project ../my_other_app
 
 ### Flags
 
-| Flag | Default | Purpose |
-|---|---|---|
-| `--flavor <name>` | none | Sets the flavor; overrides `flavor:` in YAML. |
-| `--config <path>` | `<project>/release_checklist.yaml` | Path to the config file. |
-| `--project <path>` | current directory | Path to the Flutter project being checked. |
-| `--fail-on-warning` | off | Treat any warning as a failure (exit 1). |
-| `--no-color` | auto-detect | Disable ANSI escapes. Use in CI logs. |
+| Flag                | Default                            | Purpose                                       |
+| ------------------- | ---------------------------------- | --------------------------------------------- |
+| `--flavor <name>`   | none                               | Sets the flavor; overrides `flavor:` in YAML. |
+| `--config <path>`   | `<project>/release_checklist.yaml` | Path to the config file.                      |
+| `--project <path>`  | current directory                  | Path to the Flutter project being checked.    |
+| `--fail-on-warning` | off                                | Treat any warning as a failure (exit 1).      |
+| `--no-color`        | auto-detect                        | Disable ANSI escapes. Use in CI logs.         |
 
 ### Exit codes
 
-| Code | Meaning |
-|---|---|
-| 0 | All enabled checks passed (warnings allowed unless `--fail-on-warning`). |
-| 1 | One or more checks failed. |
-| 64 | CLI usage error (bad arguments). |
-| 65 | Config file present but malformed. |
+| Code | Meaning                                                                  |
+| ---- | ------------------------------------------------------------------------ |
+| 0    | All enabled checks passed (warnings allowed unless `--fail-on-warning`). |
+| 1    | One or more checks failed.                                               |
+| 64   | CLI usage error (bad arguments).                                         |
+| 65   | Config file present but malformed.                                       |
 
 ### Sample output
 
@@ -119,7 +119,7 @@ Drop a `release_checklist.yaml` file at the root of your Flutter project. A
 fully-annotated example lives in [`example/release_checklist.yaml`](example/release_checklist.yaml).
 
 ```yaml
-flavor: production              # optional; --flavor on the CLI overrides
+flavor: production # optional; --flavor on the CLI overrides
 
 checks:
   android_manifest: true
@@ -209,15 +209,18 @@ release_checks:
 ## All checks, in detail
 
 ### 1. `android_manifest`
+
 Reads `android/app/src/main/AndroidManifest.xml`. Fails if `android:debuggable`
 is set to any truthy value. Skipped if the manifest is missing.
 
 ### 2. `ios_plist`
+
 Reads `ios/Runner/Info.plist`. Fails if `<key>NSAllowsArbitraryLoads</key>`
 is followed by `<true/>`. Warns if `NSAppTransportSecurity.NSExceptionDomains`
 contains any domain key with `*` in it.
 
 ### 3. `hardcoded_secrets`
+
 Scans every `.dart` file under `lib/`. Default patterns:
 
 ```
@@ -233,6 +236,7 @@ failures, since false positives are common. Each match shows file path, line
 number, and the offending line snippet.
 
 ### 4. `proguard`
+
 Verifies `android/app/proguard-rules.pro` exists. Then parses
 `android/app/build.gradle` (or `.kts`), finds the `release { ... }` block,
 and confirms `minifyEnabled true` (Groovy) or `isMinifyEnabled = true`
@@ -240,6 +244,7 @@ and confirms `minifyEnabled true` (Groovy) or `isMinifyEnabled = true`
 confirmed → warning.
 
 ### 5. `debug_mode`
+
 Scans `lib/**.dart` after stripping line comments and string literals so
 matches inside text are ignored.
 
@@ -248,28 +253,33 @@ matches inside text are ignored.
 - `kDebugMode` outside an `assert(...)` line → **warning**
 
 ### 6. `analyze`
+
 Runs `flutter analyze --no-pub`. Skipped if `flutter` is not on `PATH`.
 Forwards the analyzer's combined output to the report.
 
 ### 7. `version_bump`
+
 Parses `version:` from `pubspec.yaml` (must be `MAJOR.MINOR.PATCH` or
 `MAJOR.MINOR.PATCH+BUILD`). Reads `git tag --sort=-v:refname`, strips a
 leading `v` if present, finds the most recent semver-shaped tag, and
 compares. Skipped if no `.git` directory; warns if no semver tags exist.
 
 ### 8. `test_coverage`
+
 Runs `flutter test --coverage`, parses `coverage/lcov.info`, sums all `LF`
 and `LH` counters across files, and compares the resulting percent against
 `thresholds.test_coverage_min`. Skipped if there is no `test/` directory or
 lcov isn't generated.
 
 ### 9. `app_icon`
+
 For Android, checks that each of `mipmap-mdpi`, `mipmap-hdpi`, `mipmap-xhdpi`,
 `mipmap-xxhdpi`, `mipmap-xxxhdpi` contains an `ic_launcher.png`. For iOS,
 checks that `ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json`
 exists and is non-empty.
 
 ### 10. `dart_define_leak`
+
 Scans `.vscode/launch.json`, all `.xml`/`.iml`/`.json` files under `.idea/`,
 and any root-level `*.sh` / `*.env` files. Flags `--dart-define KEY=VALUE`
 entries where the value:
@@ -341,4 +351,4 @@ If this tool saves you from a bad release, consider buying me a coffee:
 
 ## License
 
-MIT.
+MIT...
