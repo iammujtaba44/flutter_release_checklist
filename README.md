@@ -341,13 +341,20 @@ dart test
 
 ---
 
+## Related Packages
+
+- [flutter_netwatch](https://pub.dev/packages/flutter_netwatch) — HTTP inspector with sensitive data masking
+
 ## Author
 
 Built by **Muhammad Mujtaba** — [mujtaba.cc](https://www.mujtaba.cc/)
 
-If this tool saves you from a bad release, consider buying me a coffee:
+## Support
 
-[☕ Buy me a coffee](https://buymeacoffee.com/immujtaba9h)
+If this package saves your team time, consider sponsoring:
+
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/iammujtaba44?style=flat&logo=github&label=Sponsor)](https://github.com/sponsors/iammujtaba44)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-☕-yellow)](https://buymeacoffee.com/immujtaba9h)
 
 ## License
 
